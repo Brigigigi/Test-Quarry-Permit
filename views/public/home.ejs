@@ -1,0 +1,27 @@
+<%- include('../partials/head') %>
+
+<section class="grid md:grid-cols-3 gap-6 mt-6">
+  <div class="col-span-2">
+    <div class="bg-white rounded-lg shadow p-6">
+      <h1 class="text-2xl font-semibold mb-3">Quarry Permit Applications</h1>
+      <p class="text-slate-600">Apply online for quarry permits, track your application status, and receive your permit digitally when approved.</p>
+      <div class="mt-6 flex gap-3">
+        <a href="/apply" class="px-5 py-2.5 rounded bg-indigo-600 text-white hover:bg-indigo-700">Start Application</a>
+        <a href="/track" class="px-5 py-2.5 rounded border border-slate-300 text-slate-700 hover:bg-slate-50">Track Status</a>
+      </div>
+    </div>
+  </div>
+  <div>
+    <div class="bg-indigo-50 border border-indigo-200 rounded-lg p-5">
+      <h2 class="font-semibold text-indigo-800">What you’ll need</h2>
+      <ul class="list-disc ml-6 mt-2 text-indigo-900 text-sm">
+        <li>Applicant details and contact information</li>
+        <li>Site location and material details</li>
+        <li>Valid ID and supporting documents</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<%- include('../partials/foot') %>
+

@@ -1,0 +1,59 @@
+<%- include('../partials/head') %>
+
+<div class="grid md:grid-cols-3 gap-6">
+  <div class="md:col-span-1">
+    <div class="bg-white rounded-lg shadow p-6">
+      <h2 class="font-semibold mb-2">Track Status</h2>
+      <form method="post" action="/track" class="space-y-3">
+        <label class="block">
+          <span class="text-sm text-slate-600">Tracking Code</span>
+          <input name="trackingCode" required class="mt-1 input" placeholder="e.g., 3F2A1C" />
+        </label>
+        <button class="px-4 py-2 rounded bg-indigo-600 text-white hover:bg-indigo-700">Check</button>
+      </form>
+      <% if (error) { %>
+        <p class="text-sm text-red-600 mt-3"><%= error %></p>
+      <% } %>
+    </div>
+  </div>
+  <div class="md:col-span-2">
+    <% if (!app) { %>
+      <div class="bg-slate-50 border border-dashed border-slate-300 rounded p-6 text-slate-500">Enter your tracking code to see details.</div>
+    <% } else { %>
+      <div class="bg-white rounded-lg shadow p-6">
+        <h2 class="font-semibold text-slate-800">Application: <span class="font-mono"><%= app.trackingCode %></span></h2>
+        <p class="text-sm text-slate-600">Status: <span class="font-medium"><%= app.status %></span></p>
+        <div class="mt-4 grid md:grid-cols-2 gap-4">
+          <div>
+            <h3 class="font-semibold">Applicant</h3>
+            <p><%= app.applicant.fullName %></p>
+            <p class="text-sm text-slate-600"><%= app.applicant.email %> • <%= app.applicant.phone %></p>
+            <p class="text-sm text-slate-600"><%= app.applicant.address %></p>
+          </div>
+          <div>
+            <h3 class="font-semibold">Quarry</h3>
+            <p><%= app.quarry.siteName %></p>
+            <p class="text-sm text-slate-600"><%= app.quarry.barangay %>, <%= app.quarry.municipality %>, <%= app.quarry.province %></p>
+            <% if (app.quarry.coordinates) { %>
+              <p class="text-sm text-slate-600">Coords: <%= app.quarry.coordinates %></p>
+            <% } %>
+          </div>
+        </div>
+        <div class="mt-4">
+          <h3 class="font-semibold">Request</h3>
+          <p class="text-sm text-slate-600"><%= app.request.volume %> <%= app.request.unit %> of <%= app.request.material %> for <%= app.request.purpose || '—' %></p>
+        </div>
+        <% if (app.permit) { %>
+          <div class="mt-6 p-4 rounded border border-green-200 bg-green-50">
+            <p class="text-green-800 font-medium">Permit Issued</p>
+            <p class="text-sm text-green-900">Permit No: <%= app.permit.number %> • Valid: <%= app.permit.issueDate %> to <%= app.permit.expiryDate %></p>
+            <a target="_blank" href="/permit/<%= app.id %>/print" class="inline-block mt-2 px-3 py-1.5 rounded bg-green-600 text-white">View/Print Permit</a>
+          </div>
+        <% } %>
+      </div>
+    <% } %>
+  </div>
+</div>
+
+<%- include('../partials/foot') %>
+
