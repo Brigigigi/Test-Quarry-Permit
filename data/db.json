@@ -1,0 +1,85 @@
+{
+  "applications": [
+    {
+      "id": "9ce722d3-4f85-4000-928b-c0adf28d69ad",
+      "trackingCode": "9CE722D3",
+      "status": "Permit Issued",
+      "submissionDate": "2025-09-05T03:51:21.608Z",
+      "applicant": {
+        "fullName": "Jeffrey Kim Nato Nato",
+        "email": "jeffreykimnato17@gmail.com",
+        "phone": "09386480054",
+        "address": "79. Mariveles Street",
+        "org": "",
+        "idType": "national id",
+        "idNumber": "123456"
+      },
+      "quarry": {
+        "siteName": "makati",
+        "barangay": "brgy. aa",
+        "municipality": "Mandaluyong",
+        "province": ",aknJLKSAS",
+        "coordinates": "2138190 12093u"
+      },
+      "request": {
+        "material": "good item",
+        "volume": "1",
+        "unit": "m3",
+        "purpose": "test",
+        "startDate": "2025-09-05",
+        "endDate": "2025-09-05",
+        "equipment": ""
+      },
+      "attachments": [
+        {
+          "originalName": "Personnel Requirements.docx",
+          "filename": "1757044281602-Personnel_Requirements.docx",
+          "size": 23310,
+          "mimetype": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+          "path": "uploads\\9ce722d3-4f85-4000-928b-c0adf28d69ad\\1757044281602-Personnel_Requirements.docx"
+        }
+      ],
+      "reviewNotes": [],
+      "history": [
+        {
+          "at": "2025-09-05T03:51:21.608Z",
+          "action": "Submitted",
+          "by": "Applicant"
+        },
+        {
+          "at": "2025-09-05T03:56:07.010Z",
+          "action": "Status: Under Review",
+          "by": "admin"
+        },
+        {
+          "at": "2025-09-05T05:33:10.890Z",
+          "action": "Permit Issued",
+          "by": "admin"
+        }
+      ],
+      "permit": {
+        "number": "5555",
+        "issueDate": "2025-09-05",
+        "expiryDate": "2025-09-05",
+        "conditions": "",
+        "fees": "",
+        "receiptNo": "",
+        "issuedBy": "admin"
+      }
+    }
+  ],
+  "users": [
+    {
+      "username": "admin",
+      "password": "admin123",
+      "displayName": "LGU Admin"
+    }
+  ],
+  "settings": {
+    "lgu": {
+      "name": "Sample LGU",
+      "address": "123 Municipal Hall, Sampletown",
+      "contact": "lgu@example.gov"
+    }
+  }
+}
