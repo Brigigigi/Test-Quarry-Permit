@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quarry Permit Application</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Registration Page -->
+  <div id="registerPage" class="container">
+    <h2>Register</h2>
+    <input type="text" id="regUser" placeholder="Username">
+    <input type="password" id="regPass" placeholder="Password">
+
+    <label for="role">Role:</label>
+    <select id="regRole">
+      <option value="user">Applicant</option>
+      <option value="admin">Admin</option>
+    </select>
+
+    <button onclick="register()">Register</button>
+    <p>Already have an account? <a href="#" onclick="showLogin()">Login</a></p>
+  </div>
+
+  <!-- Login Page -->
+  <div id="loginPage" class="container hidden">
+    <h2>Login</h2>
+    <input type="text" id="loginUser" placeholder="Username">
+    <input type="password" id="loginPass" placeholder="Password">
+    <button onclick="login()">Login</button>
+    <p>Don’t have an account? <a href="#" onclick="showRegister()">Register</a></p>
+  </div>
+
+  <!-- Menu Page -->
+  <div id="menuPage" class="container hidden">
+    <h2>Welcome!</h2>
+    <button onclick="showForm()">Go to Checklist</button>
+    <button id="appFormBtn" onclick="showApplicationForm()">Application Form</button>
+    <button class="secondary" onclick="logout()">Logout</button>
+  </div>
+
+  <!-- User Checklist Page (PDF Preview) -->
+  <div id="formPageUser" class="container hidden">
+    <h2>Checklist Requirements</h2>
+    <p>Please refer to the official checklist below:</p>
+    <img src="checklist.png" alt="Checklist PDF" style="width:100%; border:1px solid #ccc;">
+    <button onclick="showMenu()">Back to Menu</button>
+  </div>
+
+  <!-- Admin Checklist Page (Interactive) -->
+  <div id="formPageAdmin" class="container hidden">
+    <h2>Quarry Permit Application Checklist (Admin)</h2>
+
+    <div class="progress" id="progressContainer">
+      <div class="progress__bar" id="progressBar"></div>
+      <span class="progress__text" id="progressText">0% complete</span>
+    </div>
+
+    <form id="checklistForm" class="checklist">
+      <label class="checklist-item"><input type="checkbox"> Duly accomplished application form (MGB Form 8-4)</label>
+      <label class="checklist-item"><input type="checkbox"> Location map (NAMRIA topo map, scale 1:50,000)</label>
+      <label class="checklist-item"><input type="checkbox"> Sketch Plan of proposed permit area</label>
+      <label class="checklist-item"><input type="checkbox"> Five-Year Work Program (MGB Form 6-2)</label>
+      <label class="checklist-item"><input type="checkbox"> Certificate of Environmental Management & Community Relations Record</label>
+      <label class="checklist-item"><input type="checkbox"> Environmental Compliance Certificate</label>
+      <label class="checklist-item"><input type="checkbox"> Environmental Protection and Enhancement Program</label>
+      <label class="checklist-item"><input type="checkbox"> Proof of technical competence (CVs, track records, etc.)</label>
+      <label class="checklist-item"><input type="checkbox"> Proof of financial capability (statements, audited reports, ITR, etc.)</label>
+      <label class="checklist-item"><input type="checkbox"> Articles of Incorporation/By-Laws/SEC Certificate</label>
+      <label class="checklist-item"><input type="checkbox"> Secretary’s Certificate authorizing representative</label>
+      <label class="checklist-item"><input type="checkbox"> Other supporting papers as required</label>
+      <label class="checklist-item"><input type="checkbox"> Fees (Filing, Registration, Verification, etc.)</label>
+      <div class="actions">
+        <button type="button" onclick="saveChecklist()">Save Progress</button>
+        <button type="button" class="secondary" onclick="showMenu()">Back to Menu</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Applicant Application Form -->
+  <div id="formApplicationUser" class="container hidden">
+    <h2>Quarry Permit Application Form</h2>
+    <form id="applicationForm">
+      <label>Applicant</label>
+      <input type="text" id="applicantName">
+
+      <label>Address</label>
+      <textarea id="applicantAddress"></textarea>
+
+      <label>Size of Applied Area (hectares)</label>
+      <input type="text" id="appliedArea">
+
+      <label>Quarry Resources to be extracted/disposed</label>
+      <input type="text" id="resources">
+
+      <label>Quantity</label>
+      <input type="text" id="quantity">
+
+      <label>Province/City</label>
+      <input type="text" id="provinceCity">
+
+      <label>On the North</label>
+      <input type="text" id="north">
+
+      <label>On the East</label>
+      <input type="text" id="east">
+
+      <label>On the South</label>
+      <input type="text" id="south">
+
+      <label>On the West</label>
+      <input type="text" id="west">
+
+      <label>Approximate Area (hectares)</label>
+      <input type="text" id="approxArea">
+
+      <label>Application Fee</label>
+      <input type="text" id="fee">
+
+      <label>Official Receipt No.</label>
+      <input type="text" id="receiptNo">
+
+      <label>Date</label>
+      <input type="date" id="datePaid">
+
+      <label>TIN</label>
+      <input type="text" id="tin">
+
+      <div class="actions">
+        <button type="button" onclick="saveApplication()">Save Draft</button>
+        <button type="button" onclick="printApplication()">Download PDF</button>
+        <button type="button" onclick="previewApplication()">Preview PDF</button>
+        <button type="button" class="secondary" onclick="showMenu()">Back to Menu</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Hidden container for PDF export -->
+    <div id="pdfPreview" style="position:absolute; left:-9999px; top:0;"></div>
+
+
+  <!-- PDF Generator Library -->
+  <!-- PDF Generator Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="script.js"></script>
+
+</body>
+</html>
