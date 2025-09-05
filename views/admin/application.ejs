@@ -1,0 +1,130 @@
+<%- include('../partials/head') %>
+
+<div class="flex items-center justify-between">
+  <h1 class="text-xl font-semibold">Application Detail</h1>
+  <a href="/admin" class="px-3 py-1.5 rounded border border-slate-300 text-slate-700">Back</a>
+</div>
+
+<div class="grid md:grid-cols-3 gap-6 mt-4">
+  <div class="md:col-span-2 space-y-4">
+    <div class="bg-white rounded-lg shadow p-4">
+      <div class="flex items-center justify-between">
+        <div>
+          <p class="text-slate-500 text-sm">Tracking Code</p>
+          <p class="font-mono text-lg"><%= app.trackingCode %></p>
+        </div>
+        <div>
+          <span class="px-3 py-1 rounded-full bg-indigo-100 text-indigo-800 text-sm"><%= app.status %></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-white rounded-lg shadow p-4">
+      <h2 class="font-semibold">Applicant</h2>
+      <div class="grid md:grid-cols-2 gap-4 mt-2 text-sm">
+        <div>
+          <p class="font-medium"><%= app.applicant.fullName %></p>
+          <p class="text-slate-600"><%= app.applicant.email %> • <%= app.applicant.phone %></p>
+          <p class="text-slate-600"><%= app.applicant.address %></p>
+          <p class="text-slate-600">ID: <%= app.applicant.idType || '—' %> <%= app.applicant.idNumber || '' %></p>
+        </div>
+        <div>
+          <p class="font-medium">Quarry</p>
+          <p><%= app.quarry.siteName %></p>
+          <p class="text-slate-600"><%= app.quarry.barangay %>, <%= app.quarry.municipality %>, <%= app.quarry.province %></p>
+          <% if (app.quarry.coordinates) { %>
+            <p class="text-slate-600">Coords: <%= app.quarry.coordinates %></p>
+          <% } %>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-white rounded-lg shadow p-4">
+      <h2 class="font-semibold">Request</h2>
+      <p class="text-sm text-slate-600 mt-2"><%= app.request.volume %> <%= app.request.unit %> of <%= app.request.material %> for <%= app.request.purpose || '—' %></p>
+      <p class="text-sm text-slate-600">Schedule: <%= app.request.startDate || '—' %> to <%= app.request.endDate || '—' %></p>
+    </div>
+
+    <div class="bg-white rounded-lg shadow p-4">
+      <h2 class="font-semibold">Attachments</h2>
+      <% if (!app.attachments || app.attachments.length === 0) { %>
+        <p class="text-sm text-slate-600">No files</p>
+      <% } else { %>
+        <ul class="list-disc ml-6 text-sm">
+          <% app.attachments.forEach(f => { %>
+            <li>
+              <a class="text-indigo-700 hover:underline" href="/admin/files/<%= app.id %>/<%= f.filename %>" target="_blank"><%= f.originalName %></a>
+              <span class="text-slate-500">(<%= f.mimetype %>, <%= (f.size/1024).toFixed(1) %> KB)</span>
+            </li>
+          <% }) %>
+        </ul>
+      <% } %>
+    </div>
+
+    <div class="bg-white rounded-lg shadow p-4">
+      <h2 class="font-semibold">History</h2>
+      <div class="mt-2 text-sm">
+        <% app.history.forEach(h => { %>
+          <div class="flex items-center justify-between border-b last:border-b-0 py-2">
+            <div><%= h.action %> <span class="text-slate-500">by <%= h.by %></span></div>
+            <div class="text-slate-500"><%= new Date(h.at).toLocaleString() %></div>
+          </div>
+        <% }) %>
+      </div>
+    </div>
+  </div>
+
+  <div class="space-y-4">
+    <div class="bg-white rounded-lg shadow p-4">
+      <h2 class="font-semibold">Update Status</h2>
+      <form method="post" action="/admin/applications/<%= app.id %>/status" class="mt-2">
+        <select name="status" class="input w-full">
+          <% ['Submitted','Under Review','Approved','Rejected'].forEach(s => { %>
+            <option value="<%= s %>" <%= s===app.status ? 'selected' : '' %>><%= s %></option>
+          <% }) %>
+        </select>
+        <button class="mt-2 px-3 py-1.5 rounded bg-indigo-600 text-white">Save</button>
+      </form>
+    </div>
+
+    <div class="bg-white rounded-lg shadow p-4">
+      <h2 class="font-semibold">Add Review Note</h2>
+      <form method="post" action="/admin/applications/<%= app.id %>/note" class="mt-2">
+        <textarea name="note" rows="3" class="input w-full"></textarea>
+        <button class="mt-2 px-3 py-1.5 rounded bg-slate-800 text-white">Add Note</button>
+      </form>
+      <% if (app.reviewNotes && app.reviewNotes.length) { %>
+        <div class="mt-3 text-sm divide-y">
+          <% app.reviewNotes.slice().reverse().forEach(n => { %>
+            <div class="py-2"><%= n.note %> <span class="text-slate-500">— <%= n.by %>, <%= new Date(n.at).toLocaleString() %></span></div>
+          <% }) %>
+        </div>
+      <% } %>
+    </div>
+
+    <div class="bg-white rounded-lg shadow p-4">
+      <h2 class="font-semibold">Issue Permit</h2>
+      <% if (app.permit) { %>
+        <div class="p-3 rounded bg-green-50 border border-green-200 text-sm">
+          Permit <strong><%= app.permit.number %></strong> issued. <a class="text-green-800 underline" target="_blank" href="/permit/<%= app.id %>/print">View</a>
+        </div>
+      <% } else { %>
+        <form method="post" action="/admin/applications/<%= app.id %>/permit" class="grid gap-3">
+          <input name="number" class="input" placeholder="Permit Number" required />
+          <div class="grid grid-cols-2 gap-3">
+            <label class="block text-sm">Issue Date<input type="date" name="issueDate" class="mt-1 input" required /></label>
+            <label class="block text-sm">Expiry Date<input type="date" name="expiryDate" class="mt-1 input" required /></label>
+          </div>
+          <textarea name="conditions" rows="3" class="input" placeholder="Conditions (optional)"></textarea>
+          <div class="grid grid-cols-2 gap-3">
+            <input name="fees" class="input" placeholder="Fees Paid (optional)" />
+            <input name="receiptNo" class="input" placeholder="OR Number (optional)" />
+          </div>
+          <button class="px-3 py-1.5 rounded bg-green-600 text-white">Issue Permit</button>
+        </form>
+      <% } %>
+    </div>
+  </div>
+</div>
+
+<%- include('../partials/foot') %>

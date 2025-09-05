@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Permit <%= app.permit.number %></title>
+  <style>
+    body{font-family: ui-sans-serif,system-ui,Segoe UI,Roboto; margin:40px; color:#0f172a}
+    .card{border:1px solid #cbd5e1; padding:24px; border-radius:12px}
+    .muted{color:#475569}
+    .row{display:flex; gap:16px}
+    .row>div{flex:1}
+    .header{display:flex; align-items:center; justify-content:space-between}
+    .badge{background:#16a34a; color:#fff; padding:4px 10px; border-radius:999px; font-size:12px}
+    .print{margin-top:16px}
+    @media print {.print{display:none}}
+  </style>
+  <script>
+    function doPrint(){ window.print(); }
+  </script>
+</head>
+<body>
+  <div class="card">
+    <div class="header">
+      <div>
+        <h1>Quarry Permit</h1>
+        <p class="muted">Permit No. <strong><%= app.permit.number %></strong></p>
+      </div>
+      <div><span class="badge">Issued</span></div>
+    </div>
+    <hr style="margin:16px 0" />
+    <div class="row">
+      <div>
+        <h3>Applicant</h3>
+        <p><%= app.applicant.fullName %></p>
+        <p class="muted"><%= app.applicant.address %></p>
+        <p class="muted"><%= app.applicant.email %> • <%= app.applicant.phone %></p>
+      </div>
+      <div>
+        <h3>Validity</h3>
+        <p>Issued: <%= app.permit.issueDate %></p>
+        <p>Expires: <%= app.permit.expiryDate %></p>
+      </div>
+    </div>
+    <div style="margin-top:12px">
+      <h3>Scope</h3>
+      <p class="muted"><%= app.request.volume %> <%= app.request.unit %> of <%= app.request.material %> from <%= app.quarry.siteName %>, <%= app.quarry.barangay %>, <%= app.quarry.municipality %>, <%= app.quarry.province %></p>
+    </div>
+    <% if (app.permit.conditions) { %>
+      <div style="margin-top:12px">
+        <h3>Conditions</h3>
+        <p class="muted"><%= app.permit.conditions %></p>
+      </div>
+    <% } %>
+    <div style="margin-top:20px" class="muted">
+      <p>Issued by: <strong><%= app.permit.issuedBy %></strong></p>
+      <% if (app.permit.fees) { %>
+        <p>Fees Paid: <%= app.permit.fees %> • OR No: <%= app.permit.receiptNo || '—' %></p>
+      <% } %>
+    </div>
+    <button class="print" onclick="doPrint()">Print</button>
+  </div>
+</body>
+</html>
+

@@ -1,0 +1,17 @@
+<%- include('../partials/head') %>
+
+<div class="bg-white rounded-lg shadow p-6">
+  <h1 class="text-xl font-semibold text-green-700">Application Submitted</h1>
+  <p class="text-slate-600 mt-2">Thank you, <span class="font-medium"><%= app.applicant.fullName %></span>. Your application has been received.</p>
+  <div class="mt-4 bg-green-50 border border-green-200 rounded p-4">
+    <p class="text-sm text-green-900">Tracking Code</p>
+    <p class="text-2xl font-mono"><%= app.trackingCode %></p>
+    <p class="text-sm text-green-900 mt-2">Use this code on the Track page to check your status.</p>
+  </div>
+  <div class="mt-6">
+    <a class="px-4 py-2 rounded bg-slate-100 text-slate-700 hover:bg-slate-200" href="/track">Go to Track</a>
+  </div>
+</div>
+
+<%- include('../partials/foot') %>
+

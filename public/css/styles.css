@@ -1,0 +1,4 @@
+/* Minimal utilities to complement Tailwind's CDN build */
+.input{display:block;width:100%;border:1px solid #cbd5e1;border-radius:.5rem;padding:.5rem .75rem;background:#fff;outline:none}
+.input:focus{border-color:#6366f1;box-shadow:0 0 0 3px rgba(99,102,241,.2)}
+

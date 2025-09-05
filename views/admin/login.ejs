@@ -1,0 +1,22 @@
+<%- include('../partials/head') %>
+
+<div class="max-w-md mx-auto bg-white rounded-lg shadow p-6">
+  <h1 class="text-xl font-semibold mb-4">Admin Login</h1>
+  <form method="post" action="/admin/login" class="space-y-4">
+    <label class="block">
+      <span class="text-sm text-slate-600">Username</span>
+      <input name="username" required class="mt-1 input" />
+    </label>
+    <label class="block">
+      <span class="text-sm text-slate-600">Password</span>
+      <input name="password" type="password" required class="mt-1 input" />
+    </label>
+    <% if (error) { %>
+      <p class="text-sm text-red-600"><%= error %></p>
+    <% } %>
+    <button class="px-4 py-2 rounded bg-indigo-600 text-white">Sign in</button>
+  </form>
+</div>
+
+<%- include('../partials/foot') %>
+
